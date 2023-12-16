@@ -1,8 +1,8 @@
-import 'package:firebaseauthentication/login_screen.dart';
-import 'package:firebaseauthentication/signup_screen.dart';
-import 'package:firebaseauthentication/welcome.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebaseauthentication/provider/auth_provider_app.dart';
+import 'package:firebaseauthentication/screens/splash_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -10,7 +10,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => AuthProviderApp(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,8 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SignUpScreen(),
+      home: const SplashScreen(),
     );
   }
 }
-
